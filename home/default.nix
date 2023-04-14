@@ -26,5 +26,7 @@
     meld
     lsof
     clamav
+    kubectl
+    k9s
   ];
 }
