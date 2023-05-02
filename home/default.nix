@@ -28,5 +28,6 @@
     clamav
     kubectl
     k9s
+    postman
   ];
 }
