@@ -3,12 +3,21 @@
   imports = [
     ./fonts.nix
     ./vscode.nix
+    ./i3
   ];
   home.packages = with pkgs; [
-    dbeaver
+    delta
+    firefox
     google-chrome
-    lens
     slack
+    vscode
     teams
+    libheif
+    postman
+    dbeaver
+    lens
+    pavucontrol
+    spotify
+    sublime
   ];
 }

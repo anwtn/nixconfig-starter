@@ -1,0 +1,56 @@
+theme "default"
+pane_frames false
+keybinds clear-defaults=true {
+    normal {
+        bind "Ctrl t" { SwitchToMode "tmux"; }
+        bind "Alt Left" { MoveFocusOrTab "Left"; }
+        bind "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt Up" { MoveFocus "Up"; }
+        bind "Alt Down" { MoveFocus "Down"; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+    }
+    tmux {
+        bind "c" { NewTab; SwitchToMode "normal";}
+        bind "e" { EditScrollback; SwitchToMode "normal"; }
+        bind "f" { SwitchToMode "entersearch"; }
+        bind "h" { NewPane "Down"; SwitchToMode "normal"; }
+        bind "n" { GoToNextTab; SwitchToMode "normal"; }
+        bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
+        bind "q" { CloseFocus; SwitchToMode "normal"; }
+        bind "Q" { Quit; }
+        bind "v" { NewPane "Right"; SwitchToMode "normal"; }
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "Alt Left" { MovePane "Left"; SwitchToMode "normal"; }
+        bind "Alt Right" { MovePane "Right"; SwitchToMode "normal"; }
+        bind "Alt Up" { MovePane "Up"; SwitchToMode "normal"; }
+        bind "Alt Down" { MovePane "Down"; SwitchToMode "normal"; }
+        bind "Up" { ScrollUp; }
+        bind "Down" { ScrollDown; }
+        bind "PageDown" { HalfPageScrollDown; }
+        bind "PageUp" { HalfPageScrollUp; }
+        bind "End" { ScrollToBottom; SwitchToMode "normal"; }
+        bind "Ctrl t" { ToggleTab; SwitchToMode "normal"; }
+        bind "Esc" "Enter" { SwitchToMode "normal"; }
+    }
+    entersearch {
+        bind "Enter" { Search "up"; SwitchToMode "search"; }
+        bind "Esc" { ScrollToBottom; SwitchToMode "normal"; }
+    }
+    search {
+        bind "n" { Search "up"; }
+        bind "p" { Search "down"; }
+        bind "Up" { ScrollUp; }
+        bind "Down" { ScrollDown; }
+        bind "PageDown" { HalfPageScrollDown; }
+        bind "PageUp" { HalfPageScrollUp; }
+        bind "Esc" { ScrollToBottom; SwitchToMode "normal"; }
+    }
+}

@@ -2,13 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../common/i3.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -21,8 +29,8 @@
   };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-27da2bce-9f3e-4fdc-b280-77023f2c7cb6".device = "/dev/disk/by-uuid/27da2bce-9f3e-4fdc-b280-77023f2c7cb6";
-  boot.initrd.luks.devices."luks-27da2bce-9f3e-4fdc-b280-77023f2c7cb6".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-7d1fbf87-cfb5-4c99-97c6-b0a72594be18".device = "/dev/disk/by-uuid/7d1fbf87-cfb5-4c99-97c6-b0a72594be18";
+  boot.initrd.luks.devices."luks-7d1fbf87-cfb5-4c99-97c6-b0a72594be18".keyFile = "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -38,14 +46,26 @@
   time.timeZone = "Australia/Sydney";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_AU.utf8";
+  i18n.defaultLocale = "en_AU.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_AU.UTF-8";
+    LC_IDENTIFICATION = "en_AU.UTF-8";
+    LC_MEASUREMENT = "en_AU.UTF-8";
+    LC_MONETARY = "en_AU.UTF-8";
+    LC_NAME = "en_AU.UTF-8";
+    LC_NUMERIC = "en_AU.UTF-8";
+    LC_PAPER = "en_AU.UTF-8";
+    LC_TELEPHONE = "en_AU.UTF-8";
+    LC_TIME = "en_AU.UTF-8";
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # Enable ClamAv virus scanning
+  services.clamav.daemon.enable = true;
+  services.clamav.updater.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -56,9 +76,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable ClamAv virus scanning
-  services.clamav.daemon.enable = true;
-  services.clamav.updater.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -84,12 +101,17 @@
   users.users.aaronnewton = {
     isNormalUser = true;
     description = "Aaron Newton";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
+    shell = "/etc/profiles/per-user/aaronnewton/bin/zsh";
     packages = with pkgs; [
       firefox
     #  thunderbird
     ];
   };
+
+  # Enable automatic login for the user.
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "victor";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -97,8 +119,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -111,7 +133,19 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
+  #services.xserver.videoDrivers = ["nvidia"];
+  #hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.powerManagement.enable = false;
+  #hardware.nvidia.prime = {
+  # sync.enable = true;
+  #  offload.enable = true;
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;  # Enable the OpenSSH daemon.
+  
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
@@ -126,14 +160,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
-
-    # Custom programs
-#  let pkgs = import <nixpkgs> {};
-#  in pkgs.callPackage (
-#    # whatever is in hello.nix
-#    git
-#  ) {}
-
-
+  system.stateVersion = "22.11"; # Did you read the comment?
 }
