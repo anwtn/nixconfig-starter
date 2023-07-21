@@ -17,7 +17,6 @@
     dbeaver
     lens
     pavucontrol
-    brightnessctl
     spotify
     sublime
   ];

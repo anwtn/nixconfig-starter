@@ -22,23 +22,6 @@
     ./starship.nix
   ];
 
-  home.packages = with pkgs; [
-    awscli2
-    docker-compose
-    pciutils
-    unzip
-    wget
-    zip
-    openvpn
-    vim
-    meld
-    lsof
-    clamav
-    kubectl
-    k9s
-    postman
-  ];
-
   home.username = user.username;
   home.homeDirectory = user.homeDirectory;
   home.stateVersion = "22.11";
