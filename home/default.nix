@@ -1,4 +1,3 @@
-{ config, pkgs, user, ... }:
 {
   config,
   pkgs,
@@ -23,12 +22,6 @@
     ./starship.nix
   ];
 
-  home.username = user.username;
-  home.homeDirectory = user.homeDirectory;
-  home.stateVersion = "22.11";
-  programs.home-manager.enable = true;
-  programs.direnv.enable = true;
-
   home.packages = with pkgs; [
     awscli2
     docker-compose
@@ -45,4 +38,9 @@
     k9s
     postman
   ];
+
+  home.username = user.username;
+  home.homeDirectory = user.homeDirectory;
+  home.stateVersion = "22.11";
+  programs.home-manager.enable = true;
 }

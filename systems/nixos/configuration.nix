@@ -13,12 +13,6 @@
     ../common/i3.nix
   ];
 
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
@@ -60,6 +54,9 @@
   services.clamav.daemon.enable = true;
   services.clamav.updater.enable = true;
 
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     layout = "au";
@@ -95,10 +92,6 @@
     description = "Aaron Newton";
     extraGroups = ["networkmanager" "wheel" "docker"];
     shell = "/etc/profiles/per-user/aaronnewton/bin/zsh";
-    packages = with pkgs; [
-      firefox
-    #  thunderbird
-    ];
   };
 
   # Enable automatic login for the user.
