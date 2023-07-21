@@ -2,11 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
 {
   config,
   pkgs,
@@ -17,6 +12,7 @@
     ./hardware-configuration.nix
     ../common/i3.nix
   ];
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -29,8 +25,8 @@
   };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-7d1fbf87-cfb5-4c99-97c6-b0a72594be18".device = "/dev/disk/by-uuid/7d1fbf87-cfb5-4c99-97c6-b0a72594be18";
-  boot.initrd.luks.devices."luks-7d1fbf87-cfb5-4c99-97c6-b0a72594be18".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-27da2bce-9f3e-4fdc-b280-77023f2c7cb6".device = "/dev/disk/by-uuid/27da2bce-9f3e-4fdc-b280-77023f2c7cb6";
+  boot.initrd.luks.devices."luks-27da2bce-9f3e-4fdc-b280-77023f2c7cb6".keyFile = "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -60,9 +56,6 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable ClamAv virus scanning
   services.clamav.daemon.enable = true;
   services.clamav.updater.enable = true;
@@ -75,7 +68,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -111,7 +103,7 @@
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "victor";
+  services.xserver.displayManager.autoLogin.user = "aaronnewton";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -119,8 +111,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -144,8 +136,9 @@
   #};
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;  # Enable the OpenSSH daemon.
-  
+  services.blueman.enable = true;
+
+  # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
