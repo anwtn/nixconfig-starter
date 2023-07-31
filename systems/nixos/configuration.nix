@@ -18,6 +18,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # AJN 20230731 - disable intel graphics integrated GPU. This is a workaround.
+  # https://nixos.wiki/wiki/Nvidia#Fix_black_screen_on_a_system_with_an_integrated_GPU
+  boot.kernelParams = [ "module_blacklist=i915" ];
+
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
