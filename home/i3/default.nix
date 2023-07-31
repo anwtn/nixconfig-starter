@@ -10,7 +10,7 @@
     ../rofi
   ];
   home.file = {
-    "${config.xdg.configHome}/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/wks/nixconfig-starter/home/i3/config";
+    "${config.xdg.configHome}/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/source/nixconfig-starter/home/i3/config";
   };
   home.packages = with pkgs.unstable; [
     i3lock-color

@@ -187,7 +187,7 @@ bindsym $mod+q exec rofi -show power-menu -modi power-menu:power-menu
 bindsym $mod+Shift+q exec i3-msg exit
 
 # Lock TODO!!
-bindsym $mod+Shift+l exec ~/wks/nixconfig-starter/scripts/lock-screen
+bindsym $mod+Shift+l exec ~/source/nixconfig-starter/scripts/lock-screen
 # Suspend
 bindsym $mod+Shift+s exec systemctl suspend
 
@@ -285,7 +285,7 @@ for_window [title="Todoist$"] move container to workspace 7
 
 # Services
 # TODO
-#exec_always --no-startup-id ~/wks/nixconfig-starter/scripts/update-wallpaper
+#exec_always --no-startup-id ~/source/nixconfig-starter/scripts/update-wallpaper
 exec systemctl --user restart dunst
 
 # for_window [class="^.*"] border pixel 0

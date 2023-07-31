@@ -4,7 +4,7 @@
   ...
 }: {
   home.file = {
-    "${config.xdg.configHome}/dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/wks/nixconfig-starter/home/dunst/config";
+    "${config.xdg.configHome}/dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/source/nixconfig-starter/home/dunst/config";
   };
 
   systemd.user.services.dunst = {

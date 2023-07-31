@@ -13,7 +13,7 @@
 
     initExtra = ''
       [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ] && source $HOME/.nix-profile/etc/profile.d/nix.sh
-      export PATH=$HOME/wks/nixconfig-starter/scripts:$PATH
+      export PATH=$HOME/source/nixconfig-starter/scripts:$PATH
       export EDITOR=hx
       export GOPATH=$HOME/go
       # Added ~/bin to PATH for Aaron's custom tools, including exercism
