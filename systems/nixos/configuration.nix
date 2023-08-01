@@ -74,10 +74,10 @@ in {
   # services.xserver.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
-    layout = "au";
-    xkbVariant = "";
-  };
+  # services.xserver = {
+  #   layout = "au";
+  #   xkbVariant = "";
+  # };
 
   # AJN 20230731 - see https://nixos.wiki/wiki/Nvidia#Nvidia_PRIME
   # Use NVIDIA Prime drivers.
