@@ -108,19 +108,21 @@ in {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   
-  # services.xserver.videoDrivers = [ "nvidia" ];
+  # https://nixos.wiki/wiki/Nvidia#Nvidia_PRIME
   hardware.nvidia.prime = {
-    # sync.enable = true;
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
-    };
-    # 01:00.0 VGA compatible controller: NVIDIA Corporation GA107M [GeForce RTX 3050 Ti Mobile] (rev a1)
-    # PCI:1:0:0
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
+   offload = {
+     enable = true;
+     enableOffloadCmd = true;
+   };
+  
+   # intelBusId = "PCI:0:2:0";
+   nvidiaBusId = "PCI:1:0:0";
   };
+
+  ### END: Sync mode
+
   # END: NVIDIA configuration.
+
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
