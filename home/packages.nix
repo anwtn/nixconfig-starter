@@ -1,7 +1,7 @@
 { config, pkgs, user, ... }:
 {
   imports = [
-    ../i3
+    ./i3
   ];
 
   home.packages = with pkgs.unstable; [
