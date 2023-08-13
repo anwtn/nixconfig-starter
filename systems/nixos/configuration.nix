@@ -71,7 +71,7 @@ in {
   services.clamav.updater.enable = true;
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
 
   # Configure keymap in X11
   # services.xserver = {
@@ -79,49 +79,33 @@ in {
   #   xkbVariant = "";
   # };
 
-  # AJN 20230731 - see https://nixos.wiki/wiki/Nvidia#Nvidia_PRIME
-  # Use NVIDIA Prime drivers.
+  #### NVIDIA specific configuration
 
-  # Make sure opengl is enabled
   hardware.opengl = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
+  hardware.enableAllFirmware = true;
 
-  # Tell Xorg to use the nvidia driver (also valid for Wayland)
   services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-
-    # Modesetting is needed for most Wayland compositors
-    modesetting.enable = true;
-
-    # Use the open source version of the kernel module
-    # Only available on driver 515.43.04+
-    open = false;
-
-    # Enable the nvidia settings menu
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-  
-  # https://nixos.wiki/wiki/Nvidia#Nvidia_PRIME
+  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.powerManagement.enable = false;
   hardware.nvidia.prime = {
-   offload = {
-     enable = true;
-     enableOffloadCmd = true;
-   };
-  
-   # intelBusId = "PCI:0:2:0";
-   nvidiaBusId = "PCI:1:0:0";
+    # sync.enable = true;
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 
-  ### END: Sync mode
-
-  # END: NVIDIA configuration.
+  #### END: NVIDIA specific configuration
 
 
   # Enable CUPS to print documents.

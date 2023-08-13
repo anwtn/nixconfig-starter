@@ -1,5 +1,9 @@
 { config, pkgs, user, ... }:
 {
+  imports = [
+    ../i3
+  ];
+
   home.packages = with pkgs.unstable; [
     awscli2
     clamav
