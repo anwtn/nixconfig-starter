@@ -22,5 +22,6 @@
     wget
     zip
     sd
+    meld
   ];
 }

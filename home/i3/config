@@ -48,6 +48,9 @@ bindsym XF86MonBrightnessUp --no-startup-id exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym Print exec --no-startup-id flameshot gui
 
+# AJN - windows tab between workspaces
+# bindsym $mod+Tab workspace back_and_forth
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
