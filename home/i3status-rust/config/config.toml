@@ -1,0 +1,86 @@
+[theme]
+theme = "solarized-dark"
+[theme.overrides]
+idle_bg = "#24273a"
+idle_fg = "#cad3f5"
+info_bg = "#24273a"
+info_fg = "#cad3f5"
+good_bg = "#859900"
+good_fg = "#002b36"
+warning_bg = "#8aadf4"
+warning_fg = "#24273a"
+critical_bg = "#ed8796"
+critical_fg = "#24273a"
+separator = "\ue0b2"
+separator_bg = "auto"
+separator_fg = "auto"
+
+icons_format = "{icon}"
+
+[icons]
+# TODO icons = "material-nf"
+
+# https://docs.rs/i3status-rs/latest/i3status_rs/blocks/index.html
+[[block]]
+block = "cpu"
+interval = 1
+format = " $icon $utilization $barchart "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used_percents.eng(w:1) "
+interval = 30
+warning_mem = 80
+critical_mem = 90
+
+[[block]]
+block = "temperature"
+format = " $icon $max "
+format_alt = " $icon $min min, $max max, $average avg "
+interval = 10
+chip = "*-isa-*"
+info = 80
+warning = 90
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+format = " $icon root: $available.eng(w:2) "
+
+[[block]]
+block = "net"
+format = " $icon {$signal_strength $ssid $speed_down $speed_up|No WiFi} "
+
+[[block]]
+block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+# https://openweathermap.org/city/2147714
+[[block]]
+block = "weather"
+format = " $icon $weather_verbose ($location) $temp, $wind m/s $direction "
+[block.service]
+name = "openweathermap"
+api_key = "476b81fdcd2cc9ab8d99967ea1c39fee"
+city_id = "2147714"
+units = "metric"
+lang = "en"
+
+[[block]]
+block = "battery"
+format = " $icon $percentage {({$time})|}"
+device = "DisplayDevice"
+driver = "upower"
+missing_format = ""
+
+[[block]]
+block = "time"
+interval = 5
+format = " $timestamp.datetime(f:'%a %d/%m %R') "

@@ -2,18 +2,32 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: let nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+in {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../common/i3.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  # AJN 20230731 - disable intel graphics integrated GPU. This is a workaround.
+  # https://nixos.wiki/wiki/Nvidia#Fix_black_screen_on_a_system_with_an_integrated_GPU
+  # boot.kernelParams = [ "module_blacklist=i915" ];
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -38,27 +52,64 @@
   time.timeZone = "Australia/Sydney";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_AU.utf8";
+  i18n.defaultLocale = "en_AU.UTF-8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "au";
-    xkbVariant = "";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_AU.UTF-8";
+    LC_IDENTIFICATION = "en_AU.UTF-8";
+    LC_MEASUREMENT = "en_AU.UTF-8";
+    LC_MONETARY = "en_AU.UTF-8";
+    LC_NAME = "en_AU.UTF-8";
+    LC_NUMERIC = "en_AU.UTF-8";
+    LC_PAPER = "en_AU.UTF-8";
+    LC_TELEPHONE = "en_AU.UTF-8";
+    LC_TIME = "en_AU.UTF-8";
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable ClamAv virus scanning
   services.clamav.daemon.enable = true;
   services.clamav.updater.enable = true;
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Configure keymap in X11
+  # services.xserver = {
+  #   layout = "au";
+  #   xkbVariant = "";
+  # };
+
+  #### NVIDIA specific configuration
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+  hardware.enableAllFirmware = true;
+
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.powerManagement.enable = false;
+  hardware.nvidia.prime = {
+    # sync.enable = true;
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
+  #### END: NVIDIA specific configuration
+
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -84,12 +135,13 @@
   users.users.aaronnewton = {
     isNormalUser = true;
     description = "Aaron Newton";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    #  thunderbird
-    ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
+    shell = "/etc/profiles/per-user/aaronnewton/bin/zsh";
   };
+
+  # Enable automatic login for the user.
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = "aaronnewton";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -111,6 +163,19 @@
 
   # List services that you want to enable:
 
+  #services.xserver.videoDrivers = ["nvidia"];
+  #hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.powerManagement.enable = false;
+  #hardware.nvidia.prime = {
+  # sync.enable = true;
+  #  offload.enable = true;
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
@@ -126,14 +191,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
-
-    # Custom programs
-#  let pkgs = import <nixpkgs> {};
-#  in pkgs.callPackage (
-#    # whatever is in hello.nix
-#    git
-#  ) {}
-
-
+  system.stateVersion = "22.11"; # Did you read the comment?
 }
