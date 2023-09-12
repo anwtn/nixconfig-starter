@@ -23,5 +23,8 @@
     zip
     sd
     meld
+    p7zip
+    mariadb
+    postgresql
   ];
 }
