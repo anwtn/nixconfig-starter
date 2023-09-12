@@ -26,5 +26,6 @@
     p7zip
     mariadb
     postgresql
+    discord
   ];
 }
