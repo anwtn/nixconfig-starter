@@ -27,5 +27,6 @@
     mariadb
     postgresql
     discord
+    lsof
   ];
 }
