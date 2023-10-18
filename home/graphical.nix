@@ -11,11 +11,11 @@
     google-chrome
     slack
     vscode
-    teams
+  # teams # Marked as insecure 2023-10-18
     libheif
     postman
     dbeaver
-    lens
+    # lens
     pavucontrol
     spotify
     sublime
