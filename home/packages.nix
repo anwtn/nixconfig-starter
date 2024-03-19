@@ -28,5 +28,6 @@
     postgresql
     discord
     lsof
+    jq
   ];
 }
