@@ -29,5 +29,6 @@
     discord
     lsof
     jq
+    ncdu
   ];
 }
