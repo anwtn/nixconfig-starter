@@ -13,11 +13,11 @@
     vscode
   # teams # Marked as insecure 2023-10-18
     libheif
-    postman
+    # postman
     dbeaver
     # lens
     pavucontrol
-    spotify
-    sublime
+    # spotify
+    # sublime
   ];
 }
