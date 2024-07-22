@@ -33,8 +33,11 @@
         config.allowUnfree = true;
 
         # Allows you to use an unstable package with pkgs.unstable.<foo>
+        # 20240722t1606 AJN - disabling unstable overlays.
+        # overlays =
+        #   [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs-unstable; }; inherit repo-nnn; }) ];
         overlays =
-          [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs-unstable; }; inherit repo-nnn; }) ];
+           [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs; }; inherit repo-nnn; }) ];
       };
     in
     {
