@@ -151,7 +151,12 @@ in {
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    # Ref https://jointhefreeworld.org/blog/articles/gnu-linux/openvpn3-on-nixos-with-web-based-saml.html
+    openvpn3
   ];
+
+  # Ref https://jointhefreeworld.org/blog/articles/gnu-linux/openvpn3-on-nixos-with-web-based-saml.html
+  programs.openvpn3.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
