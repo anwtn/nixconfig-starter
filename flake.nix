@@ -34,10 +34,18 @@
 
         # Allows you to use an unstable package with pkgs.unstable.<foo>
         # 20240722t1606 AJN - disabling unstable overlays.
-        # overlays =
-        #   [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs-unstable; }; inherit repo-nnn; }) ];
         overlays =
-           [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs; }; inherit repo-nnn; }) ];
+          [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs-unstable; }; inherit repo-nnn; }) ];
+        # overlays =
+        #    [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs; }; inherit repo-nnn; }) ];
+
+
+        # Override for VSCode.
+        # https://discourse.nixos.org/t/how-to-update-vs-code-in-nixos/30552/7
+        # packageOverrides = pkgs: {
+        #   vscode = nixpkgs-unstable.vscode;
+        # };
+
       };
     in
     {

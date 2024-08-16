@@ -6,4 +6,5 @@
       ms-vsliveshare.vsliveshare
     ];
   };
+
 }

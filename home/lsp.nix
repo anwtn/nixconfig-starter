@@ -11,10 +11,11 @@
     nodePackages.eslint_d
     nodePackages.prettier
     nodePackages.prettier_d_slim
-    nodePackages.pyright
+    # nodePackages.pyright
     nodePackages.typescript-language-server
-    nodePackages.vscode-css-languageserver-bin
-    nodePackages.vscode-html-languageserver-bin
+    # nodePackages.vscode-css-languageserver-bin
+    nodePackages.vscode-langservers-extracted
+    # nodePackages.vscode-html-languageserver-bin
     nodePackages.vscode-langservers-extracted
     nodePackages.vim-language-server
     nodePackages.yaml-language-server
