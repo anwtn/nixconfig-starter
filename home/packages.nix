@@ -5,8 +5,8 @@
   ];
 
   home.packages = with pkgs.unstable; [
-    awscli2
-    clamav
+    # awscli2
+    # clamav
     fd
     docker-compose
     inkscape
