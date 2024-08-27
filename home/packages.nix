@@ -5,7 +5,7 @@
   ];
 
   home.packages = with pkgs.unstable; [
-    # awscli2
+    awscli2
     # clamav
     fd
     docker-compose
