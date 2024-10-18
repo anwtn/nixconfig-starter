@@ -153,7 +153,24 @@ in {
   #  wget
     # Ref https://jointhefreeworld.org/blog/articles/gnu-linux/openvpn3-on-nixos-with-web-based-saml.html
     openvpn3
+    # Avahi networking to allow for domains like host.local
+    nssmdns
   ];
+
+  # Enable mdns for resolving .local domains
+  networking.hosts = {
+    "127.0.0.1" = [ "host.local" ];
+  };
+
+  # Configure name resolution
+  networking.extraHosts = ''
+    127.0.0.1 host.local
+  '';
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+  };
 
   # Ref https://jointhefreeworld.org/blog/articles/gnu-linux/openvpn3-on-nixos-with-web-based-saml.html
   programs.openvpn3.enable = true;
