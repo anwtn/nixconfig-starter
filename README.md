@@ -84,7 +84,7 @@ sudo nixos-rebuild switch --flake .#
 - All software, including the OS is locked to the nixpkgs git version in `flake.lock`, to update this run:
 
 ```
-nix flake update
+sudo nix flake update
 ```
 
 - Then run this to apply and reboot

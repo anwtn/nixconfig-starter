@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  home.packages = [ pkgs.unstable.zellij ];
+  home.packages = [ pkgs.zellij ];
 
   home.file = {
     "${config.xdg.configHome}/zellij/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/source/nixconfig-starter/home/zellij/config.kdl";

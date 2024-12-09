@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./nnn
+    # ./nnn
     ./mime.nix
     ./k9s
     ./lazygit

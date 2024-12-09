@@ -14,7 +14,7 @@
   # teams # Marked as insecure 2023-10-18
     libheif
     # postman
-    dbeaver
+    dbeaver-bin
     # lens
     pavucontrol
     # spotify

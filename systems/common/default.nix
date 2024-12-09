@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     settings.auto-optimise-store = true;
     extraOptions = ''
       experimental-features = nix-command flakes

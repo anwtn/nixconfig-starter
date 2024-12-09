@@ -4,7 +4,7 @@
     ./i3
   ];
 
-  home.packages = with pkgs.unstable; [
+  home.packages = with pkgs; [
     awscli2
     clamav
     fd

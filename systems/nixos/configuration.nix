@@ -144,7 +144,7 @@ in {
   # services.xserver.displayManager.autoLogin.user = "aaronnewton";
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -169,7 +169,7 @@ in {
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
   };
 
   # Ref https://jointhefreeworld.org/blog/articles/gnu-linux/openvpn3-on-nixos-with-web-based-saml.html

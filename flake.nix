@@ -1,25 +1,24 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Use the latest stable nixpkgs for the 24.05 release
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+
+    # Home Manager matching nixpkgs 24.05
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    repo-nnn = {
-      url = "github:jarun/nnn";
-      flake = false;
-    };
   };
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, repo-nnn, ... }:
+
+  outputs = { nixpkgs, home-manager, ... }:
     let
+      # Define user configurations
       users = {
         me = {
-          # CHANGE ME TO YOUR USER
           name = "Aaron Newton";
           username = "aaronnewton";
           homeDirectory = "/home/aaronnewton";
-          email = "aaron.newton@playtravel.com.au";
+          email = "aaron.newton@gmail.com";
         };
         docker = {
           name = "Docker User";
@@ -28,27 +27,16 @@
           email = "docker@example.com";
         };
       };
-      pkgsForSystem = { system, pkgs ? nixpkgs }: import pkgs {
+
+      # Function to create pkgs for a specific system
+      pkgsForSystem = { system }: import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
-
-        # Allows you to use an unstable package with pkgs.unstable.<foo>
-        # 20240722t1606 AJN - disabling unstable overlays.
-        overlays =
-          [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs-unstable; }; inherit repo-nnn; }) ];
-        # overlays =
-        #    [ (final: prev: { unstable = pkgsForSystem { inherit system; pkgs = nixpkgs; }; inherit repo-nnn; }) ];
-
-
-        # Override for VSCode.
-        # https://discourse.nixos.org/t/how-to-update-vs-code-in-nixos/30552/7
-        # packageOverrides = pkgs: {
-        #   vscode = nixpkgs-unstable.vscode;
-        # };
-
+        config = {
+          allowUnfree = true;
+        };
       };
-    in
-    {
+    in {
+      # Define Home Manager configurations
       homeConfigurations = {
         docker = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsForSystem { system = "x86_64-linux"; };
@@ -60,8 +48,10 @@
           };
         };
       };
+
+      # Define NixOS configurations
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem rec {
+        nixos = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = pkgsForSystem { system = "x86_64-linux"; };
           modules = [
