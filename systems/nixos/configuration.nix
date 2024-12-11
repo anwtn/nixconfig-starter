@@ -155,6 +155,8 @@ in {
     openvpn3
     # Avahi networking to allow for domains like host.local
     nssmdns
+    # Terminal file manager
+    yazi
   ];
 
   # Enable mdns for resolving .local domains
