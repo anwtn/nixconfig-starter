@@ -199,6 +199,8 @@ in {
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+  # Fixes infuriating blueman issue.
+  services.dbus.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
