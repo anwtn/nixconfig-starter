@@ -157,6 +157,8 @@ in {
     nssmdns
     # Terminal file manager
     yazi
+    # Needed for DBUS?
+    dconf
   ];
 
   # Enable mdns for resolving .local domains
@@ -201,6 +203,7 @@ in {
   services.blueman.enable = true;
   # Fixes infuriating blueman issue.
   services.dbus.enable = true;
+  programs.dconf.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
