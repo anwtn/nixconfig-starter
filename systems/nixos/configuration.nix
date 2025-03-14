@@ -163,13 +163,18 @@ in {
 
   # Enable mdns for resolving .local domains
   networking.hosts = {
-    "127.0.0.1" = [ "host.local" ];
+    "127.0.0.1" = [ 
+      "host.local"
+      "wwl.local" 
+    ];
   };
 
-  # Configure name resolution
-  networking.extraHosts = ''
-    127.0.0.1 host.local
-  '';
+  # Redundant since we use the above networking.hosts.
+  # # Configure name resolution
+  # networking.extraHosts = ''
+  #   127.0.0.1 host.local
+  #   127.0.0.1 wwl.local
+  # '';
 
   services.avahi = {
     enable = true;
