@@ -169,13 +169,6 @@ in {
     ];
   };
 
-  # Redundant since we use the above networking.hosts.
-  # # Configure name resolution
-  # networking.extraHosts = ''
-  #   127.0.0.1 host.local
-  #   127.0.0.1 wwl.local
-  # '';
-
   services.avahi = {
     enable = true;
     nssmdns4 = true;
