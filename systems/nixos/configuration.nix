@@ -165,7 +165,8 @@ in {
   networking.hosts = {
     "127.0.0.1" = [ 
       "host.local"
-      "wwl.local" 
+      "wwl.local"
+      "ppc.local"
     ];
   };
 
