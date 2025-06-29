@@ -11,7 +11,8 @@
       size = 1000000;
     };
 
-    initExtra = ''
+    # initExtra = '' # Deprecated in Nix 25.05 stable.
+    initContent = ''
       [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ] && source $HOME/.nix-profile/etc/profile.d/nix.sh
       export PATH=$HOME/source/nixconfig-starter/scripts:$PATH
       export EDITOR=hx

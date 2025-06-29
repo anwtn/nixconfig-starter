@@ -13,7 +13,8 @@
     imagemagick
     kubectl
     mkcert
-    nodejs-18_x
+    # nodejs-18_x
+    nodejs_20
     openvpn
     pciutils
     stripe-cli

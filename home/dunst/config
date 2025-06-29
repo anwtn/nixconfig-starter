@@ -21,3 +21,10 @@ foreground = "#CAD3F5"
 background = "#24273A"
 foreground = "#CAD3F5"
 frame_color = "#f5bde6"
+
+[volume]
+appname = "notify-send"
+urgency = low
+timeout = 800
+background = "#2e3440"
+foreground = "#eceff4"

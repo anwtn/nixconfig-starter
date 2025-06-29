@@ -69,7 +69,7 @@
   services.pasystray.enable = true;
   services.clipmenu.enable = true;
   services.flameshot.enable = true;
-  services.volnoti.enable = true;
+  # services.volnoti.enable = true; # Deprecated in Nix 25.05 stable
   services.poweralertd.enable = true;
   services.udiskie = {
     enable = true;

@@ -92,18 +92,36 @@ in {
   };
   hardware.enableAllFirmware = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia.modesetting.enable = true;
-  # hardware.nvidia.powerManagement.enable = false;
-  hardware.nvidia.prime = {
-    # sync.enable = true;
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
+
+####### Prior as of 24.05 (stable)
+  # services.xserver.videoDrivers = ["nvidia"];
+  # hardware.nvidia.modesetting.enable = true;
+  # # hardware.nvidia.powerManagement.enable = false;
+  # hardware.nvidia.prime = {
+  #   # sync.enable = true;
+  #   offload = {
+  #     enable = true;
+  #     enableOffloadCmd = true;
+  #   };
+  #   intelBusId = "PCI:0:2:0";
+  #   nvidiaBusId = "PCI:1:0:0";
+  # };
+
+
+####### New as of as of 25.05 (stable)
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true; # NEW LINE as of 25.05: use open kernel modules (for RTX, GTX 16xx and newer)
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
   };
+#######
 
   #### END: NVIDIA specific configuration
 
@@ -112,7 +130,8 @@ in {
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true; # Deprecated
+
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
