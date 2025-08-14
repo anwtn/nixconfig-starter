@@ -31,5 +31,6 @@
     lsof
     jq
     ncdu
+    btop
   ];
 }
