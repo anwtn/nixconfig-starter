@@ -83,10 +83,6 @@ in {
 
   # Enables docker/podman to leverage GPU virtualisation.
   services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia.modesetting.enable = true; # Set below.
-  hardware.nvidia-container-toolkit.enable = true;
-  # The suppressNvidiaDriverAssertion line is needed because hardware.nvidia.enable no longer exists.
-  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
 
   hardware.opengl = {
 
@@ -134,6 +130,11 @@ in {
     };
   };
 #######
+
+  hardware.nvidia-container-toolkit.enable = true;
+  # The suppressNvidiaDriverAssertion line is needed because hardware.nvidia.enable no longer exists.
+  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
+
 
   #### END: NVIDIA specific configuration
 
