@@ -81,7 +81,16 @@ in {
 
   #### NVIDIA specific configuration
 
+  # Enables docker/podman to leverage GPU virtualisation.
+  services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.nvidia.modesetting.enable = true; # Set below.
+  hardware.nvidia-container-toolkit.enable = true; # Does this belong in the above block?
+
   hardware.opengl = {
+
+    # Needed to keep the container virtualization happy, as they could be 32 bit.
+    driSupport32Bit = true;
+
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
@@ -110,6 +119,7 @@ in {
 
 ####### New as of as of 25.05 (stable)
   hardware.nvidia = {
+    # enable = true;             # <- ensures driver presence for nvidia-container-toolkit
     modesetting.enable = true;
     open = true; # NEW LINE as of 25.05: use open kernel modules (for RTX, GTX 16xx and newer)
     prime = {

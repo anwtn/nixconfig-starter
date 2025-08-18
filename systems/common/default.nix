@@ -9,7 +9,13 @@
     '';
   };
 
-  virtualisation.docker.enable = true;
+  # virtualisation.docker.enable = true;
+  # Docker with GPU
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true; # this hooks docker with nvidia runtime
+  };
+
   networking.firewall.enable = true;
 
   # Antivirus
