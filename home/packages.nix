@@ -32,5 +32,6 @@
     jq
     ncdu
     btop
+    pdfgrep
   ];
 }
