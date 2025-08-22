@@ -21,6 +21,7 @@
     '';
     # package = pkgs.docker_25;  # ensures CDI support
     # enableBuildkit = true; # optional, faster builds  docker-compose
+    # defaultRuntime = "nvidia";
   };
 
   networking.firewall.enable = true;
