@@ -16,6 +16,7 @@
     # enableNvidia = true; # this hooks docker with nvidia runtime. Removed in NixOS 25.05
     # # As of NixOs 25.xx this path doesn't exist where the tooling expects it. This is a workaround.
     # GPU support is now handled entirely via the NVIDIA container toolkit
+    package = pkgs.docker_25; # required for CDI GPU support
     extraOptions = ''
       --add-runtime=nvidia=${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime
     '';
@@ -23,6 +24,11 @@
     # enableBuildkit = true; # optional, faster builds  docker-compose
     # defaultRuntime = "nvidia";
   };
+
+
+  hardware.nvidia-container-toolkit.enable = true;
+  # The suppressNvidiaDriverAssertion line is needed because hardware.nvidia.enable no longer exists.
+  # hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
 
   networking.firewall.enable = true;
 
