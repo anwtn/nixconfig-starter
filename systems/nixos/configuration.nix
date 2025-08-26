@@ -163,7 +163,7 @@ in {
   users.users.aaronnewton = {
     isNormalUser = true;
     description = "Aaron Newton";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "podman"];
     shell = "/etc/profiles/per-user/aaronnewton/bin/zsh";
   };
 

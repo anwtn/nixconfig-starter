@@ -25,7 +25,13 @@
     # defaultRuntime = "nvidia";
   };
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = false; # lets you type `docker ...` instead of `podman ...` but can't work with docker enabled.
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
+  # For GPU containers (NVIDIA)
   hardware.nvidia-container-toolkit.enable = true;
   # The suppressNvidiaDriverAssertion line is needed because hardware.nvidia.enable no longer exists.
   # hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
