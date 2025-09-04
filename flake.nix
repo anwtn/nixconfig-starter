@@ -62,7 +62,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                backupFileExtension = "backup_20250826t1540";
+                backupFileExtension = "backup_20250904t1408";
                 users.aaronnewton = {
                   imports = [
                     ./home/default.nix
