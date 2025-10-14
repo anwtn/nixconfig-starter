@@ -194,6 +194,7 @@ in {
     "127.0.0.1" = [ 
       "host.local"
       "wwl.local"
+      "wmp.local"
       "ppc.local"
     ];
   };
