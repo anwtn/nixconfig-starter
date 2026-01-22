@@ -10,6 +10,7 @@
     fd
     docker-compose
     inkscape
+    gimp
     imagemagick
     kubectl
     mkcert
